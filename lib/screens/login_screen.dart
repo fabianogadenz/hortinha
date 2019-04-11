@@ -150,6 +150,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 46.0,
                                 onPressed: () {
                                   setState(() => _isLoading = true);
+                                  Future.delayed(const Duration(milliseconds: 1000), () {
+                                    onLoginSuccess();
+                                  });
+
                                 },
                                 color: Colors.white,
                                 child: Text('Login'),
@@ -175,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void onLoginSuccess() async {
     setState(() => _isLoading = false);
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         new MaterialPageRoute(builder: (context) => new HomeScreen()));
   }

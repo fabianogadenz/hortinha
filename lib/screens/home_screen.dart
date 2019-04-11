@@ -13,7 +13,13 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text("Hortinha Inteligente"),
         centerTitle: true,
       ),
-      body: Container(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+
+          ],
+        ),
+      ),
     );
   }
 }
