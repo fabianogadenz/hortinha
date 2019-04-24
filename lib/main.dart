@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hortinha/screens/details_screen.dart';
 import 'package:hortinha/screens/home_screen.dart';
 import 'package:hortinha/screens/login_screen.dart';
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: LoginScreen(),
+      home: DetailsScreen(),
     );
   }
 }
