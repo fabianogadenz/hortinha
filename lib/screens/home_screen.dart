@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:hortinha/screens/details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,40 +15,119 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text("Sensores por Canteiro"),
           centerTitle: true,
         ),
-        floatingActionButton: FloatingActionButton(onPressed: (){
-        }, child: Icon(Icons.add),),
-        body: ListView.builder(
-          itemCount: 4,
-          itemBuilder: (context, index) {
-            return Column(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.add),
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              verticalDirection: VerticalDirection.down,
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Canteiro $index", style: TextStyle(fontSize: 25.0),),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GridView.builder(
-                   // physics: NeverScrollableScrollPhysics(),
-                    physics: ClampingScrollPhysics(),
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 5,
-                      crossAxisSpacing: 5.0,
-                      mainAxisSpacing: 5.0,
+                  child: Container(
+                    decoration: BoxDecoration(border: Border.all(color: Colors.grey, width: 2)),
+                    width: double.infinity,
+                    child: ExpansionTile(
+                      title: Text("Estação Meteriológica"),
+                      children: <Widget>[
+                        LinhaTabela("Temperatura","34", true),
+                        LinhaTabela("Iluminação","200", false),
+                        LinhaTabela("Umidade do Ar","45%", true),
+                        LinhaTabela("Altitude","200m", false),
+                        LinhaTabela("Pressão","40", true),
+
+                      ],
                     ),
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        color: Colors.blue,
-                        child: Center(child: Text("Sensor: $index")),
-                      );
-                    },
+                  ),
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Canteiro $index",
+                            style: TextStyle(fontSize: 25.0),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GridView.builder(
+                            // physics: NeverScrollableScrollPhysics(),
+                            physics: ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 5,
+                              crossAxisSpacing: 5.0,
+                              mainAxisSpacing: 5.0,
+                            ),
+                            itemCount: 10,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new DetailsScreen()));
+                                },
+                                child: Container(
+                                  color: (index != 2)? Colors.green : Colors.red,
+                                  child: Center(child: Text("Sensor: $index")),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ));
+  }
+
+
+  Widget LinhaTabela(String nome, String conteudo, bool zebrado) {
+    int zebradoCor = 255;
+    if (zebrado) zebradoCor = 240;
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.all(8.0),
+            decoration: new BoxDecoration(
+              color: Color.fromRGBO(zebradoCor, zebradoCor, zebradoCor, 1.0),
+              borderRadius: const BorderRadius.all(const Radius.circular(4.0)),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  nome,
+                  style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                ),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: Text(
+                    conteudo,
+                    style: TextStyle(fontSize: 15.0),
+                    softWrap: false,
+                    overflow: TextOverflow.fade,
                   ),
                 ),
               ],
-            );
-          },
-        ));
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
