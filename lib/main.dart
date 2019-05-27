@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hortinha/screens/details_screen.dart';
 import 'package:hortinha/screens/home_screen.dart';
+import 'package:hortinha/screens/login_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: HomeScreen(),
+      home: LoginScreen(),
     );
   }
 }

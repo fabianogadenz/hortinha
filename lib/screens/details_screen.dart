@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class DetailsScreen extends StatefulWidget {
   @override
@@ -6,26 +7,48 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  final List<int> items = [1, 2, 3, 4];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        
-        slivers: <Widget>[
-          SliverAppBar(
-            expandedHeight: 150,
-            flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true,
-              background: Image.network("https://www.caldasnovas.go.gov.br/wp-content/uploads/2018/08/Departamento-de-Educa%C3%A7%C3%A3o-Socioambiental-ter%C3%A1-horta-org%C3%A2nica-Foto-Marcia-Nunes.3pg-960x480.jpg", fit: BoxFit.fill,),
-              title: Text("Detalhes do sensor X"),
-            ),
+        appBar: AppBar(
+          title: Text("Detalhe do Canteiro"),
+        ),
+        body: Container(
+            child: Column(children: <Widget>[
+//          Padding(
+//            padding: const EdgeInsets.fromLTRB(0, 25, 0, 20),
+//            child: Row(
+//              mainAxisAlignment: MainAxisAlignment.center,
+//              children: <Widget>[
+//                Text(
+//                  "SITUAÇÃO DO CANTEIRO",
+//                  style: TextStyle(color: Colors.black),
+//                )
+//              ],
+//            ),
+//          ),
+          Expanded(
+            child: Padding(
+                padding: const EdgeInsets.fromLTRB(5.0, 0, 8, 0),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    final int item = items[index];
+
+                    return ListTile(
+                      leading: Icon(MdiIcons.waterPercent, size: 40,),
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[Text("Sersor X"), Text("35%")],
+                      ),
+                      subtitle: Text("14:23:00 - 06/12/2018"),
+                    );
+                  },
+                )),
           ),
-
-
-
-        ],
-        
-      ),
-    );
+        ])));
   }
 }

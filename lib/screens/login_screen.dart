@@ -4,6 +4,7 @@ import 'package:hortinha/screens/home_screen.dart';
 
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -64,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: 280.0,
                         height: 280.0,
                         alignment: Alignment.center,
-                        child: Icon(FontAwesome.getIconData("leaf"), size: 240.0, color: Colors.green,)
+                        child: Icon(MdiIcons.leaf, size: 240.0, color: Colors.green,)
                       ),
                       new Form(
                           child: new Column(children: <Widget>[

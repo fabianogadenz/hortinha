@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:hortinha/screens/details_screen.dart';
+import 'package:hortinha/screens/history_sensor_screen.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,10 +16,6 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text("Sensores por Canteiro"),
           centerTitle: true,
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.add),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -35,12 +33,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ExpansionTile(
                       title: Text("Estação Meteriológica"),
                       children: <Widget>[
-                        LinhaTabela("Temperatura","34", true),
-                        LinhaTabela("Iluminação","200", false),
-                        LinhaTabela("Umidade do Ar","45%", true),
-                        LinhaTabela("Altitude","200m", false),
-                        LinhaTabela("Pressão","40", true),
-
+                        LinhaTabela("Temperatura", "34", true),
+                        LinhaTabela("Iluminação", "200", false),
+                        LinhaTabela("Umidade do Ar", "45%", true),
+                        LinhaTabela("Altitude", "200m", false),
+                        LinhaTabela("Pressão", "40", true),
                       ],
                     ),
                   ),
@@ -54,9 +51,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Canteiro $index",
-                            style: TextStyle(fontSize: 25.0),
+                          child: InkWell(
+                            child: Text(
+                              "Canteiro $index",
+                              style: TextStyle(fontSize: 25.0),
+                            ),
+                            onTap: () {
+                              Navigator.push(context, new MaterialPageRoute(builder: (context) => new DetailsScreen()));
+                            },
                           ),
                         ),
                         Padding(
@@ -74,11 +76,37 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new DetailsScreen()));
+                                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new HistorySensorsScreen()));
                                 },
                                 child: Container(
-                                  color: (index != 2)? Colors.green : Colors.red,
-                                  child: Center(child: Text("Sensor: $index")),
+
+
+                                  color: (index != 2) ? Colors.green : Colors.red,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text("Sensor: $index"),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Icon(MdiIcons.waterPercent, size:20,),
+                                          Text("50%"),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text("OFF", style: TextStyle(fontWeight: FontWeight.bold),),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             },
@@ -93,7 +121,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ));
   }
-
 
   Widget LinhaTabela(String nome, String conteudo, bool zebrado) {
     int zebradoCor = 255;
