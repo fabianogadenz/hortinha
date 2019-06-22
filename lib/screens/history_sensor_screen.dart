@@ -16,9 +16,12 @@ class _HistorySensorsScreenState extends State<HistorySensorsScreen> {
           title: Text("Histórico do Sensor"),
         ),
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {},
+          onPressed: () {
+            onTapItem();
+          },
           icon: Icon(Icons.invert_colors),
           label: Text("Ligar"),
+
         ),
         body:
         
@@ -57,6 +60,32 @@ class _HistorySensorsScreenState extends State<HistorySensorsScreen> {
                 )),
           ),
         ]))
+    );
+  }
+  void onTapItem() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+
+          title: new Text("Alerta", style: TextStyle(fontSize: 17.0),),
+          content: Text("Deseja ligar/desligar o aspersor responsavel por este sensor??"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Fechar"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Sim", ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

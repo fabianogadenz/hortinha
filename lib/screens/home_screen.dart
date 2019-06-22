@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:hortinha/screens/details_screen.dart';
 import 'package:hortinha/screens/history_sensor_screen.dart';
+import 'package:hortinha/screens/login_screen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,12 +11,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController _addTextController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text("Sensores por Canteiro"),
           centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.exit_to_app),
+                onPressed: () {
+                  Navigator.pushReplacement(context, new MaterialPageRoute(builder: (context) => new LoginScreen()));
+                })
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            onTapAdd();
+          },
+          child: Icon(Icons.add),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -79,8 +95,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Navigator.push(context, new MaterialPageRoute(builder: (context) => new HistorySensorsScreen()));
                                 },
                                 child: Container(
-
-
                                   color: (index != 2) ? Colors.green : Colors.red,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -95,14 +109,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: <Widget>[
-                                          Icon(MdiIcons.waterPercent, size:20,),
+                                          Icon(
+                                            MdiIcons.waterPercent,
+                                            size: 20,
+                                          ),
                                           Text("50%"),
                                         ],
                                       ),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: <Widget>[
-                                          Text("OFF", style: TextStyle(fontWeight: FontWeight.bold),),
+                                          Text(
+                                            "OFF",
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                          ),
                                         ],
                                       ),
                                     ],
@@ -156,5 +176,36 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ],
     );
+  }
+
+  void onTapAdd() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Adicionado Canteiro'),
+            content: TextField(
+              controller: _addTextController,
+              decoration: InputDecoration(hintText: "Digite o código"),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('CANCEL'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text(
+                  'ADICIONAR',
+                  style: TextStyle(fontSize: 16),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }

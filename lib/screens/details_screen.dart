@@ -14,6 +14,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Detalhe do Canteiro"),
+          actions: <Widget>[
+
+            Padding(
+              padding: EdgeInsets.only(right: 15),
+              child: IconButton(icon: Icon(Icons.location_on), onPressed: (){
+                onTapItem();
+              }),
+            ),
+          ],
         ),
         body: Container(
             child: Column(children: <Widget>[
@@ -39,7 +48,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     final int item = items[index];
 
                     return ListTile(
-                      leading: Icon(MdiIcons.waterPercent, size: 40,),
+                      leading: Icon(
+                        MdiIcons.waterPercent,
+                        size: 40,
+                      ),
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[Text("Sersor X"), Text("35%")],
@@ -50,5 +62,31 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 )),
           ),
         ])));
+  }
+
+
+  void onTapItem() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+
+          title: new Text("Alerta", style: TextStyle(fontSize: 17.0),),
+          content: Text("Deseja informar a localização atual do canteiro?"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Fechar"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Sim", ),
+              onPressed: () {},
+            ),
+          ],
+        );
+      },
+    );
   }
 }
